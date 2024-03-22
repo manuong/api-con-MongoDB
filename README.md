@@ -109,7 +109,13 @@ db.<name collection>.insertMany()
 ### Actualiza un documento en una colección específica.
 
 ```js
-db.<name collection>.updateOne()
+// El primer parametro es el filtro para seleccionar el documento a actualizar
+// El segundo parámetro es el objeto de actualización, donde utilizamos el operador "$set" para establecer el nuevo valor del campo
+db.posts.updateOne({user:"@juan"},{
+  $set:{
+    user:"@pedro"
+  }
+})
 ```
 
 ### Actualiza varios documentos en una colección específica.
