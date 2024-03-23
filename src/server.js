@@ -11,7 +11,8 @@ server.disable('x-powered-by');
 server.use(cors());
 server.use(morgan('dev'));
 server.use(express.json());
-server.use(routes);
+
+server.use("/api",routes); // prefijo /api para deferenciarlas de las rutas del front end
 
 server.use((req, res) => {
   res.status(404).json({ error: 'Rute not Found' });
