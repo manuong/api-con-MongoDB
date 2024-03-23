@@ -28,6 +28,17 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+// metodo para modificar el "toJSON" como respuesta al guardar un nuevo documento
+// este metodo no muta los documento de la base de datos
+userSchema.set('toJSON', {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id;
+    delete returnedObject._id;
+    delete returnedObject.__v;
+    delete returnedObject.password;
+  },
+});
+
 const User = mongoose.model('User', userSchema);
 
 module.exports = User;
