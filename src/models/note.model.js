@@ -22,7 +22,9 @@ const noteSchema = new mongoose.Schema(
   }
 );
 
-userSchema.set('toJSON', {
+// metodo para modificar el "toJSON" como respuesta al guardar un nuevo documento
+// este metodo no muta los documento de la base de datos
+noteSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id;
     delete returnedObject._id;
