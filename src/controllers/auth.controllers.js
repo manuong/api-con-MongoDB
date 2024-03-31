@@ -8,6 +8,15 @@ const registerController = async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
+    // una forma de guardar un nuevo registro en la base de datos puede ser la siguiente
+    // newUser = await User.create({
+    //   username,
+    //   email,
+    //   password,
+    // })
+
+    // otra forma de guardar un nuevo documento en la base de datos es instanciando un nuevo objeto de "User"
+    // de esta forma podemos alterar el objeto y guardarlo despues
     const newUser = new User({
       username,
       email,
