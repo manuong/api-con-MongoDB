@@ -29,7 +29,26 @@ const postNoteController = async (req, res) => {
 };
 
 const putNoteController = async (req, res) => {
-  res.send('put note');
+  const { noteId } = req.params;
+  const { title, content, important } = req.body;
+
+  try {
+    const newNoteInfo = {
+      title,
+      content,
+      important,
+    };
+
+    // metodo para actualizar en la base de datos tambien existe 'findOneAndUpdate()'
+    const noteUpdate = await Note.findByIdAndUpdate(noteId, newNoteInfo, { new: true });
+
+    // en caso de no encontrar una nota
+    if (!noteUpdate) return res.status(404).json({ error: 'No se encontro nota para actualizar' });
+
+    res.status(200).json(noteUpdate);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 const deleteNoteController = async (req, res) => {
