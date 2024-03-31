@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const routes = require('./routes');
 const morgan = require('morgan');
+const notFound = require('./middlewares/notFound');
 
 const server = express();
 
@@ -12,10 +13,8 @@ server.use(cors());
 server.use(morgan('dev'));
 server.use(express.json());
 
-server.use("/api",routes); // prefijo /api para deferenciarlas de las rutas del front end
+server.use('/api', routes); // prefijo /api para deferenciarlas de las rutas del front end
 
-server.use((req, res) => {
-  res.status(404).json({ error: 'Rute not Found' });
-});
+server.use(notFound);
 
 module.exports = server;
