@@ -4,7 +4,7 @@ const loginController = async (req, res) => {
   res.send('Login');
 };
 
-const registerController = async (req, res) => {
+const registerController = async (req, res, next) => {
   const { username, email, password } = req.body;
 
   try {
@@ -27,8 +27,9 @@ const registerController = async (req, res) => {
 
     res.status(201).json(userSaved);
   } catch (error) {
-    res.status(500).json({ error: error.message });
-    console.error(error.message);
+    // res.status(500).json({ error: error.message });
+    // console.error(error.message);
+    next(error);
   }
 };
 

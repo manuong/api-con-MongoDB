@@ -3,6 +3,7 @@ const cors = require('cors');
 const routes = require('./routes');
 const morgan = require('morgan');
 const notFound = require('./middlewares/notFound');
+const handleErrors = require('./middlewares/handleErrors');
 
 const server = express();
 
@@ -15,6 +16,7 @@ server.use(express.json());
 
 server.use('/api', routes); // prefijo /api para deferenciarlas de las rutas del front end
 
+server.use(handleErrors);
 server.use(notFound);
 
 module.exports = server;

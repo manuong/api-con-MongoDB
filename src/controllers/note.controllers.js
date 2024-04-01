@@ -1,16 +1,17 @@
 const Note = require('../models/note.model');
 
-const getNoteController = async (req, res) => {
+const getNoteController = async (req, res, next) => {
   try {
     // metodo para buscar en la base de datos
     const allNotes = await Note.find();
     res.status(200).json(allNotes);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    // res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
-const postNoteController = async (req, res) => {
+const postNoteController = async (req, res, next) => {
   const { title, content, important } = req.body;
 
   try {
@@ -24,11 +25,12 @@ const postNoteController = async (req, res) => {
     const saveNote = await newNote.save();
     res.status(201).json(saveNote);
   } catch (error) {
-    res.status(404).json({ error: error.message });
+    // res.status(404).json({ error: error.message });
+    next(error);
   }
 };
 
-const putNoteController = async (req, res) => {
+const putNoteController = async (req, res, next) => {
   const { noteId } = req.params;
   const { title, content, important } = req.body;
 
@@ -47,11 +49,12 @@ const putNoteController = async (req, res) => {
 
     res.status(200).json(noteUpdate);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    // res.status(400).json({ error: error.message });
+    next(error);
   }
 };
 
-const deleteNoteController = async (req, res) => {
+const deleteNoteController = async (req, res, next) => {
   res.send('delete note');
 };
 
