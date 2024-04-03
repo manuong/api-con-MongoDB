@@ -1,0 +1,5 @@
+PORT=3001
+
+MONGODB_URI=mongodb+srv://manuong:guitardata2024@manuclusters.ismuwtp.mongodb.net/notesapi?retryWrites=true&w=majority&appName=NotesAPI
+
+TOKEN_SECRET_KEY=secretKey123
