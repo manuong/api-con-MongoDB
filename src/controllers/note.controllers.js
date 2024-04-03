@@ -55,7 +55,18 @@ const putNoteController = async (req, res, next) => {
 };
 
 const deleteNoteController = async (req, res, next) => {
-  res.send('delete note');
+  const { noteId } = req.params;
+
+  try {
+    // Utiliza el método 'deleteOne()', 'findOneAndDelete()' o 'findByIdAndDelete()' de Mongoose para eliminar el documento de la base de datos.
+    // const deletedNote = await Note.findByIdAndDelete(noteId);
+    const deletedNote = await Note.findOneAndDelete({ _id: noteId });
+    if (!deletedNote) return res.status(404).json({ error: 'note not found' });
+
+    res.status(200).send('deleted note successful');
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {

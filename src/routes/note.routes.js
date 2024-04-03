@@ -10,6 +10,6 @@ const {
 noteRoutes.get('/notes', getNoteController);
 noteRoutes.post('/notes', postNoteController);
 noteRoutes.put('/notes/:noteId', putNoteController);
-noteRoutes.delete('/notes', deleteNoteController);
+noteRoutes.delete('/notes/:noteId', deleteNoteController);
 
 module.exports = noteRoutes;
