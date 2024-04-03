@@ -1,5 +1,5 @@
 // podemos tener una middleware para recibir errores mas generales en las peticiones
-// y poder darle estatus segun sea el caso
+// y poder darle estatus segun sea el caso, hay dos formas de utilizar el next una es sin parametro 'next()' y otra es pasandole el error 'next(error)'
 // para poder mandar los error se tiene que utilizar "next(error)" en cada catch de las peticiones
 const handleErrors = (error, req, res, next) => {
   console.log(error.name);
