@@ -5,11 +5,15 @@ const handleErrors = (error, req, res, next) => {
   console.log(error.name);
 
   if (error.name === 'SyntaxError') {
-    return res.status(404).json({ error: error.message });
+    return res.status(400).json({ error: error.message });
   }
 
   if (error.name === 'ValidationError') {
-    return res.status(404).json({ error: error.message });
+    return res.status(400).json({ error: error.message });
+  }
+
+  if (error.name === 'CastError') {
+    return res.status(400).json({ error: error.message });
   }
 
   res.status(500).json({ error: error.message });
