@@ -2,10 +2,6 @@ const User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
 const { createAccessToken } = require('../libs/jwt');
 
-const loginController = async (req, res) => {
-  res.send('Login');
-};
-
 const registerController = async (req, res, next) => {
   const { username, email, password } = req.body;
 
@@ -45,7 +41,43 @@ const registerController = async (req, res, next) => {
   }
 };
 
+const loginController = async (req, res, next) => {
+  const { email, username, password } = req.body;
+
+  try {
+    if ((!email && !username) || !password)
+      return res.status(400).json({ error: 'Faltan datos requeridos' });
+
+    // metodo para encontrar un registro, "$or" es un operador para poder buscar por email o username
+    const userFound = await User.findOne({
+      $or: [{ email }, { password }],
+    });
+
+    if (!userFound) return res.status(400).json({ error: 'Invalidado' });
+
+    const isPasswordMatch = bcrypt.compare(password, userFound.password);
+
+    // una buena practica es no ser tan descriptivo con los mensajes de error en la parte de la seguridad
+    if (!isPasswordMatch) return res.status(400).json({ error: 'Invalidado' });
+
+    const token = await createAccessToken({ id: userFound._id });
+
+    res.cookie('token', token);
+    res.status(200).json(userFound);
+  } catch (error) {
+    next(error);
+  }
+};
+
+const logoutController = (req, res) => {
+  res.cookie('token', '', {
+    expires: new Date(0),
+  });
+  return res.sendStatus(200);
+};
+
 module.exports = {
   loginController,
+  logoutController,
   registerController,
 };
