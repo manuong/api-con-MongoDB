@@ -4,6 +4,7 @@ const routes = require('./routes');
 const morgan = require('morgan');
 const notFound = require('./middlewares/notFound');
 const handleErrors = require('./middlewares/handleErrors');
+const cookieParser = require('cookie-parser'); // para pasar las cookies a json
 
 const server = express();
 
@@ -13,6 +14,7 @@ server.disable('x-powered-by');
 server.use(cors());
 server.use(morgan('dev'));
 server.use(express.json());
+server.use(cookieParser());
 
 server.use('/api', routes); // prefijo /api para deferenciarlas de las rutas del front end
 

@@ -16,6 +16,22 @@ const getUsersController = async (req, res, next) => {
   }
 };
 
+const profileController = async (req, res, next) => {
+  // viene despues de la autenticacion
+  const userId = req.user.id;
+
+  try {
+    const userProfile = await User.findById(userId);
+
+    if (!userProfile) return res.status(404).json({ error: 'Usuario no registrado' });
+
+    res.status(200).json(userProfile);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getUsersController,
+  profileController,
 };
