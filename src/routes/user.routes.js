@@ -1,6 +1,6 @@
 const userRoutes = require('express').Router();
 const { getUsersController, profileController } = require('../controllers/user.controllers');
-const { authUser } = require('../middlewares/validationToken');
+const { authUser } = require('../middlewares/validationToken.middleware');
 
 userRoutes.get('/users', getUsersController);
 userRoutes.get('/users/:userId', getUsersController);

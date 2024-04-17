@@ -6,7 +6,7 @@ const {
   putNoteController,
   deleteNoteController,
 } = require('../controllers/note.controllers');
-const { authUser } = require('../middlewares/validationToken');
+const { authUser } = require('../middlewares/validationToken.middleware');
 
 //* Validar Token
 // esta es una proteccion para las rutas que el usuario puede tener acceso solo si esta autenticado

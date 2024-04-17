@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const routes = require('./routes');
 const morgan = require('morgan');
-const notFound = require('./middlewares/notFound');
-const handleErrors = require('./middlewares/handleErrors');
+const notFound = require('./middlewares/notFound.middleware');
+const handleErrors = require('./middlewares/handleErrors.middleware');
 const cookieParser = require('cookie-parser'); // para pasar las cookies a json
 
 const server = express();
