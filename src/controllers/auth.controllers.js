@@ -50,12 +50,12 @@ const loginController = async (req, res, next) => {
 
     // metodo para encontrar un registro, "$or" es un operador para poder buscar por email o username
     const userFound = await User.findOne({
-      $or: [{ email }, { password }],
+      $or: [{ email }, { username }],
     });
 
     if (!userFound) return res.status(400).json({ error: 'Invalidado' });
 
-    const isPasswordMatch = bcrypt.compare(password, userFound.password);
+    const isPasswordMatch = await bcrypt.compare(password, userFound.password);
 
     // una buena practica es no ser tan descriptivo con los mensajes de error en la parte de la seguridad
     if (!isPasswordMatch) return res.status(400).json({ error: 'Invalidado' });
