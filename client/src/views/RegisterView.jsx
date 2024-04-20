@@ -17,18 +17,35 @@ import { useForm } from 'react-hook-form';
 const RegisterView = () => {
   const { register, handleSubmit } = useForm();
 
+  const functionSubmit = (values) => {
+    console.log(values);
+  };
+
   return (
-    <div className="flex">
-      <h1>Registrate</h1>
-      <form
-        onSubmit={handleSubmit((values) => {
-          console.log(values);
-        })}
-      >
-        <input type="text" {...register('username', { required: true })} />
-        <input type="text" {...register('email', { required: true })} />
-        <input type="text" {...register('password', { required: true })} />
-        <button type="submit">Registrar</button>
+    <div className="flex flex-col items-center">
+      <h1 className="mb-10 mt-36">Registrate</h1>
+      <form onSubmit={handleSubmit(functionSubmit)} className="flex flex-col items-center">
+        <input
+          placeholder="Username"
+          type="text"
+          {...register('username', { required: true })}
+          className="w-80 h-8 m-2"
+        />
+        <input
+          placeholder="Email"
+          type="text"
+          {...register('email', { required: true })}
+          className="w-80 h-8 m-2"
+        />
+        <input
+          placeholder="Password"
+          type="text"
+          {...register('password', { required: true })}
+          className="w-80 h-8 m-2"
+        />
+        <button type="submit" className="bg-green-500 w-28 h-10 hover:rounded-lg duration-200 mt-10">
+          Registrar
+        </button>
       </form>
     </div>
   );
