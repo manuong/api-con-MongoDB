@@ -19,7 +19,7 @@ const Landing = () => {
           Esta es una página echa para aprender el uso de una base de datos NO relacional (NoSQL) como
           MongoDB. Para disfrutar pulsa en el siguiente botón
         </p>
-        <button className=" bg-blue-600 h-12 w-52 rounded-lg hover:border-2 hover:border-blue-600 hover:text-blue-600 hover:bg-transparent">
+        <button className=" bg-blue-600 h-12 w-52 rounded-lg border-2 border-blue-600 hover:text-blue-600 hover:bg-transparent duration-200">
           Login
         </button>
       </div>
