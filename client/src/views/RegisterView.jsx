@@ -13,21 +13,28 @@ site : https://react-hook-form.com/get-started
 */
 
 import { useForm } from 'react-hook-form';
+import { useAuthContext } from '../hooks/useAuthContext';
+// import { useAuth } from '../context/AuthContext';
 
 const RegisterView = () => {
   //
   // utilizamos el hook "useForm()"
   const { register, handleSubmit } = useForm();
 
-  // tenemos los valores de cada imput 'values'
-  const functionSubmit = (values) => {
-    console.log(values);
-  };
+  // hook personalizado para utlizar el contexto de Autenticacion
+  // const { signup, user } = useAuth();
+  const { signup, user } = useAuthContext();
+
+  console.log(user);
+  // tenemos los valores de cada imput en 'values'
+  const onSubmit = handleSubmit(async (values) => {
+    signup(values);
+  });
 
   return (
     <div className="h-screen flex flex-col items-center justify-center">
       <h1 className="text-5xl mb-10">Registrate</h1>
-      <form onSubmit={handleSubmit(functionSubmit)} className="flex flex-col items-center">
+      <form onSubmit={onSubmit} className="flex flex-col items-center">
         <input
           placeholder="Username"
           type="text"
@@ -36,13 +43,13 @@ const RegisterView = () => {
         />
         <input
           placeholder="Email"
-          type="text"
+          type="email"
           {...register('email', { required: true })}
           className="w-96 h-12 m-4 bg-zinc-700 text-white rounded-lg pl-2"
         />
         <input
           placeholder="Password"
-          type="text"
+          type="password"
           {...register('password', { required: true })}
           className="w-96 h-12 m-4 bg-zinc-700 text-white rounded-lg pl-2"
         />

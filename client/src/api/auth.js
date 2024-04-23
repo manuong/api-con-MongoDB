@@ -1,6 +1,6 @@
 import axios from 'axios';
-const { URL_API } = process.env;
+import { API_BASE_URL, REGISTER_ENDPOINT } from '../constants/urls';
 
 export const registerRequest = (user) => {
-  axios.post(`${URL_API}/register`, user);
+  return axios.post(`${API_BASE_URL}${REGISTER_ENDPOINT}`, user);
 };
