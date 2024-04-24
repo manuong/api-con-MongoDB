@@ -36,11 +36,16 @@ Modularizando esta logica queda en el hook personalizado useAuthContext
 // Toma un prop llamado children, que representa los componentes hijos que estarán envueltos por este proveedor.
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isAuthenticated, setAuthenticated] = useState(false);
 
   const signup = async (user) => {
-    const response = await registerRequest(user);
-    console.log(response);
-    setUser(response.data);
+    try {
+      const response = await registerRequest(user);
+      setUser(response.data);
+      setAuthenticated(true);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -48,6 +53,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         signup,
         user,
+        isAuthenticated,
       }}
     >
       {children}
