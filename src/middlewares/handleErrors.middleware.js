@@ -15,7 +15,7 @@ const handleErrors = (error, req, res, next) => {
   }
 
   if (error.name === 'MongoServerError') {
-    if (error.code === 11000) return res.status(409).json({ error: 'Usuario existente' });
+    if (error.code === 11000) return res.status(409).json({ error: ['Usuario existente'] });
   }
 
   // para los errores de validacion del framework que estamos utilizando "zod"
