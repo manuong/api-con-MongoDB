@@ -28,7 +28,7 @@ const RegisterView = () => {
 
   // hook personalizado para utlizar el contexto de Autenticacion
   // const { signup, user } = useAuth();
-  const { signup, user, isAuthenticated } = useAuthContext();
+  const { signup, user, isAuthenticated, errors: authErrors } = useAuthContext();
 
   const navigate = useNavigate();
 
@@ -45,33 +45,42 @@ const RegisterView = () => {
   return (
     <div className="h-screen flex flex-col items-center justify-center">
       <h1 className="text-5xl mb-10">Registrate</h1>
+
+      {authErrors.map((error, i) => {
+        return (
+          <div key={i} className="bg-red-600 text-white w-96 p-2 mb-3">
+            {error}
+          </div>
+        );
+      })}
+
       <form onSubmit={onSubmit} className="flex flex-col">
         <input
           placeholder="Username"
           type="text"
           {...register('username', { required: true })}
-          className="w-96 h-12 my-4 bg-zinc-700 text-white rounded-lg px-2"
+          className="w-96 h-12 my-2 bg-zinc-700 text-white rounded-lg px-2"
         />
 
-        <span className="text-red-600">{errors.username && 'User name es requerido'}</span>
+        <span className="text-red-600 h-6">{errors.username && 'User name es requerido'}</span>
 
         <input
           placeholder="Email"
           type="email"
           {...register('email', { required: true })}
-          className="w-96 h-12 my-4 bg-zinc-700 text-white rounded-lg pl-2"
+          className="w-96 h-12 my-2 bg-zinc-700 text-white rounded-lg pl-2"
         />
 
-        <span className="text-red-600">{errors.email && 'Email es requerido'}</span>
+        <span className="text-red-600 h-6">{errors.email && 'Email es requerido'}</span>
 
         <input
           placeholder="Password"
           type="password"
           {...register('password', { required: true })}
-          className="w-96 h-12 my-4 bg-zinc-700 text-white rounded-lg pl-2"
+          className="w-96 h-12 my-2 bg-zinc-700 text-white rounded-lg pl-2"
         />
 
-        <span className="text-red-600">{errors.password && 'Password es requerido'}</span>
+        <span className="text-red-600 h-6">{errors.password && 'Password es requerido'}</span>
 
         <div className="grid justify-items-center">
           <button

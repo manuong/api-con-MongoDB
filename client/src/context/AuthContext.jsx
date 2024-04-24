@@ -37,6 +37,7 @@ Modularizando esta logica queda en el hook personalizado useAuthContext
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setAuthenticated] = useState(false);
+  const [errors, setErrors] = useState([]);
 
   const signup = async (user) => {
     try {
@@ -44,7 +45,8 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data);
       setAuthenticated(true);
     } catch (error) {
-      console.log(error);
+      if (!error.response) setErrors(['Network Error']);
+      setErrors(error.response.data.error);
     }
   };
 
@@ -54,6 +56,7 @@ export const AuthProvider = ({ children }) => {
         signup,
         user,
         isAuthenticated,
+        errors,
       }}
     >
       {children}
