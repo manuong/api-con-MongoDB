@@ -18,6 +18,10 @@ const handleErrors = (error, req, res, next) => {
     if (error.code === 11000) return res.status(409).json({ error: ['Usuario existente'] });
   }
 
+  if (error.name === 'AuthError') {
+    return res.status(401).json({ error: error.message });
+  }
+
   // para los errores de validacion del framework que estamos utilizando "zod"
   if (error.name === 'ZodError') {
     const errorMessages = error.errors.map((error) => error.message);

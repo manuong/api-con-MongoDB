@@ -28,33 +28,26 @@ const registerSchema = z.object({
     }),
 });
 
-const loginSchema = z
-  .object({
-    username: z.string().optional(),
-    email: z
-      .string()
-      .email({
-        message: 'email invalido',
-      })
-      .optional(),
-    password: z
-      .string({
-        required_error: 'La contraseña es requerida',
-      })
-      .min(6, {
-        message: 'La contraseña debe contener minimo 6 caracteres',
-      }),
-  }) // metodo .refine() para hacer validaciones complejas, personalizadas o condiciones adicionales a las que ya tiene "zod"
-  .refine(
-    (data) => {
-      if (data.username || data.email) {
-        return true;
-      } else return false;
-    },
-    {
-      message: 'Se requiere nombre de usuario o email',
-    }
-  );
+const loginSchema = z.object({
+  emailOrUsername: z.string({ required_error: 'email o username es requerido' }),
+  password: z
+    .string({
+      required_error: 'La contraseña es requerida',
+    })
+    .min(6, {
+      message: 'La contraseña debe contener minimo 6 caracteres',
+    }),
+}); // metodo .refine() para hacer validaciones complejas, personalizadas o condiciones adicionales a las que ya tiene "zod"
+// .refine(
+//   (data) => {
+//     if (data.username || data.email) {
+//       return true;
+//     } else return false;
+//   },
+//   {
+//     message: 'Se requiere nombre de usuario o email',
+//   }
+// );
 
 module.exports = {
   registerSchema,

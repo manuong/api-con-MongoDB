@@ -42,23 +42,24 @@ const registerController = async (req, res, next) => {
 };
 
 const loginController = async (req, res, next) => {
-  const { email, username, password } = req.body;
+  const { emailOrUsername, password } = req.body;
 
   try {
-    if ((!email && !username) || !password)
-      return res.status(400).json({ error: 'Faltan datos requeridos' });
+    // Esta validacion ya se hace con Zod
+    // if ((!emailOrUsername) || !password)
+    //   return res.status(400).json({ error: 'Faltan datos requeridos' });
 
     // metodo para encontrar un registro, "$or" es un operador para poder buscar por email o username
     const userFound = await User.findOne({
-      $or: [{ email }, { username }],
+      $or: [{ email: emailOrUsername }, { username: emailOrUsername }],
     });
 
-    if (!userFound) return res.status(400).json({ error: 'Invalidado' });
+    if (!userFound) return res.status(400).json({ error: ['Usuario o contraseña incorrectos'] });
 
     const isPasswordMatch = await bcrypt.compare(password, userFound.password);
 
     // una buena practica es no ser tan descriptivo con los mensajes de error en la parte de la seguridad
-    if (!isPasswordMatch) return res.status(400).json({ error: 'Invalidado' });
+    if (!isPasswordMatch) return res.status(400).json({ error: ['Usuario o contraseña incorrectos'] });
 
     const token = await createAccessToken({ id: userFound._id });
 

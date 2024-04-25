@@ -11,7 +11,7 @@ const LoginView = () => {
     formState: { errors },
   } = useForm();
 
-  const { signin, isAuthenticate, errors: authErrors } = useAuthContext();
+  const { signin, isAuthenticated, errors: authErrors } = useAuthContext();
 
   const navigate = useNavigate();
 
@@ -21,8 +21,8 @@ const LoginView = () => {
   });
 
   useEffect(() => {
-    if (isAuthenticate) navigate(PATH.HOME);
-  }, [isAuthenticate, navigate]);
+    if (isAuthenticated) navigate(PATH.HOME);
+  }, [isAuthenticated, navigate]);
 
   console.log(errors);
 
@@ -42,12 +42,12 @@ const LoginView = () => {
         <input
           placeholder="Email o username"
           type="text"
-          {...register('email o username', { required: true })}
+          {...register('emailOrUsername', { required: true })}
           className="w-96 h-12 my-2 bg-zinc-700 text-white rounded-lg px-2"
         />
 
         <span className="text-red-600 h-6">
-          {errors['email o username'] && 'Email o username es requerido'}
+          {errors.emailOrUsername && 'Email o username es requerido'}
         </span>
 
         <input
