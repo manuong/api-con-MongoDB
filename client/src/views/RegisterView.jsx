@@ -28,11 +28,10 @@ const RegisterView = () => {
 
   // hook personalizado para utlizar el contexto de Autenticacion
   // const { signup, user } = useAuth();
-  const { signup, user, isAuthenticated, errors: authErrors } = useAuthContext();
+  const { signup, isAuthenticated, errors: authErrors } = useAuthContext();
 
   const navigate = useNavigate();
 
-  console.log(user);
   // tenemos los valores de cada imput en 'values'
   const onSubmit = handleSubmit(async (values) => {
     signup(values);

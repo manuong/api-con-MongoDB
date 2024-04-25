@@ -9,7 +9,7 @@
 */
 
 import { useState } from 'react';
-import { registerRequest } from '../api/auth';
+import { loginRequest, registerRequest } from '../api/auth';
 import { AuthContext } from '../hooks/useAuthContext';
 
 /* 
@@ -50,10 +50,22 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const signin = async (user) => {
+    try {
+      const response = await loginRequest(user);
+      setUser(response.data);
+      setAuthenticated(true);
+    } catch (error) {
+      if (!error.response) setErrors(['Network Error']);
+      setErrors(error.response.data.error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
         signup,
+        signin,
         user,
         isAuthenticated,
         errors,
