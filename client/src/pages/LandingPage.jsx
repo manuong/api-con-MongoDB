@@ -1,4 +1,7 @@
-const Landing = () => {
+import { Link } from 'react-router-dom';
+import PATH from '../constants/pathRoutes';
+
+const LandingPage = () => {
   return (
     <div className="h-screen flex justify-around items-center">
       <div className="text-8xl grid justify-items-end">
@@ -19,12 +22,15 @@ const Landing = () => {
           Esta es una página echa para aprender el uso de una base de datos NO relacional (NoSQL) como
           MongoDB. Para disfrutar pulsa en el siguiente botón
         </p>
-        <button className=" bg-blue-600 h-12 w-52 rounded-lg border-2 border-blue-600 hover:text-blue-600 hover:bg-transparent duration-200">
-          Login
-        </button>
+
+        <Link to={PATH.LOGIN}>
+          <button className=" bg-blue-600 h-12 w-52 rounded-lg border-2 border-blue-600 hover:text-blue-600 hover:bg-transparent duration-200">
+            Login
+          </button>
+        </Link>
       </div>
     </div>
   );
 };
 
-export default Landing;
+export default LandingPage;

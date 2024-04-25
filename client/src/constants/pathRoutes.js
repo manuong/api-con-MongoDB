@@ -1,4 +1,5 @@
 const PATH = {
+  LANDING: '/',
   HOME: '/home',
   LOGIN: '/login',
   REGISTER: '/register',

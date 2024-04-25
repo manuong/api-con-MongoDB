@@ -8,7 +8,7 @@
 
 */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { loginRequest, registerRequest } from '../api/auth';
 import { AuthContext } from '../hooks/useAuthContext';
 
@@ -60,6 +60,17 @@ export const AuthProvider = ({ children }) => {
       setErrors(error.response.data.error);
     }
   };
+
+  useEffect(() => {
+    if (errors.length > 0) {
+      const timer = setTimeout(() => {
+        setErrors([]);
+      }, 6000);
+      // cuando se desmonte el componente
+      // 'clearTimeout' funcion para quitar un setTimeout
+      return () => clearTimeout(timer);
+    }
+  }, [errors]);
 
   return (
     <AuthContext.Provider

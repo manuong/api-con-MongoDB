@@ -15,9 +15,10 @@ site : https://react-hook-form.com/get-started
 import { useForm } from 'react-hook-form';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PATH from '../constants/pathRoutes';
-const RegisterView = () => {
+
+const RegisterPage = () => {
   //
   // utilizamos el hook "useForm()"
   const {
@@ -81,10 +82,17 @@ const RegisterView = () => {
 
         <span className="text-red-600 h-6">{errors.password && 'Password es requerido'}</span>
 
+        <p className="text-center">
+          ¿Ya tienes una cuenta?{' '}
+          <Link to={PATH.LOGIN} className="text-sky-700 font-bold">
+            Inicia Sesión
+          </Link>
+        </p>
+
         <div className="grid justify-items-center">
           <button
             type="submit"
-            className="bg-blue-600 rounded-lg w-28 h-10 border-2 border-blue-600 hover:text-blue-600 hover:bg-transparent duration-200 mt-10"
+            className="bg-blue-600 rounded-lg w-28 h-10 border-2 border-blue-600 hover:text-blue-600 hover:bg-transparent duration-200 mt-5"
           >
             Registrar
           </button>
@@ -94,4 +102,4 @@ const RegisterView = () => {
   );
 };
 
-export default RegisterView;
+export default RegisterPage;
