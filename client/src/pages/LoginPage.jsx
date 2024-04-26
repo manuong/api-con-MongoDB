@@ -16,7 +16,6 @@ const LoginPage = () => {
   const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (values) => {
-    console.log(values);
     signin(values);
   });
 
