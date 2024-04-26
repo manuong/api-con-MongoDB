@@ -5,7 +5,7 @@ const PATH = {
   REGISTER: '/register',
   NOTE: '/note',
   NOTE_DETAIL: '/note/:noteId',
-  ADD_NOTE: '/add-note',
+  NOTE_FORM: '/note-form',
   PROFILE: '/profile',
 };
 

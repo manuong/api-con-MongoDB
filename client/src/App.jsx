@@ -6,6 +6,7 @@ import LandingPage from './pages/LandingPage';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './ProtectedRoute';
 import OnlyUnauthorized from './OnlyUnauthorized';
+import NoteFormPage from './pages/NoteFormPage';
 
 const App = () => {
   return (
@@ -22,7 +23,7 @@ const App = () => {
             <Route path={PATH.HOME} element={<h1>Home page</h1>} />
             <Route path={PATH.NOTE} element={<h1>notes page</h1>} />
             <Route path={PATH.NOTE_DETAIL} element={<h1>update note</h1>} />
-            <Route path={PATH.ADD_NOTE} element={<h1>Add notes</h1>} />
+            <Route path={PATH.NOTE_FORM} element={<NoteFormPage />} />
             <Route path={PATH.PROFILE} element={<h1>User Profile</h1>} />
           </Route>
         </Routes>
