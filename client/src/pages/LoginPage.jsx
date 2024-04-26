@@ -23,8 +23,6 @@ const LoginPage = () => {
     if (isAuthenticated) navigate(PATH.HOME);
   }, [isAuthenticated, navigate]);
 
-  console.log(errors);
-
   return (
     <div className="h-screen flex flex-col items-center justify-center relative">
       <Link to={PATH.LANDING} className="text-2xl font-bold text-sky-700 absolute left-16 top-16">

@@ -1,6 +1,10 @@
 const User = require('../models/user.model');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const { createAccessToken } = require('../libs/jwt');
+const { AuthError } = require('../errors');
+
+const { TOKEN_SECRET_KEY } = process.env;
 
 const registerController = async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -77,8 +81,33 @@ const logoutController = (req, res) => {
   return res.sendStatus(200);
 };
 
+const verifyTokenController = async (req, res, next) => {
+  try {
+    let userId = undefined;
+    const { token } = req.cookies;
+    if (!token) throw new AuthError('no hay token');
+
+    jwt.verify(token, TOKEN_SECRET_KEY, (error, decoded) => {
+      if (error) throw new AuthError('token no valido');
+
+      userId = decoded.id;
+    });
+
+    const userFound = await User.findById(userId);
+
+    if (!userFound) {
+      return res.status(404).json({ error: ['Usuario no registrado'] });
+    }
+
+    res.status(200).json({ userFound });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   loginController,
   logoutController,
   registerController,
+  verifyTokenController,
 };

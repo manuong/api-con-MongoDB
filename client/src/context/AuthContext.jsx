@@ -9,8 +9,9 @@
 */
 
 import { useEffect, useState } from 'react';
-import { loginRequest, registerRequest } from '../api/auth';
+import { loginRequest, registerRequest, verifyTokenRequest } from '../api/auth';
 import { AuthContext } from '../hooks/useAuthContext';
+import Cookies from 'js-cookie';
 
 /* 
 
@@ -38,6 +39,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const signup = async (user) => {
     try {
@@ -62,6 +64,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    // este setTimeout es para cerrar las alertas de los errores despues de un tiempo
     if (errors.length > 0) {
       const timer = setTimeout(() => {
         setErrors([]);
@@ -72,6 +75,28 @@ export const AuthProvider = ({ children }) => {
     }
   }, [errors]);
 
+  // sirve para verificar si el token que se tiene guardado es correcto y a que usuario pertenece
+  // esto al momento de cargar la pagina
+  useEffect(() => {
+    const cookies = Cookies.get(); // libreria para poder obtener el token de las cookies
+    if (!cookies.token) setLoading(false);
+
+    if (cookies.token) {
+      verifyTokenRequest()
+        .then((response) => {
+          const { data } = response;
+          setUser(data);
+          setAuthenticated(true);
+          setLoading(false);
+        })
+        .catch((error) => {
+          alert(error.response.data.error);
+          setAuthenticated(false);
+          setLoading(false);
+        });
+    }
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
@@ -80,6 +105,7 @@ export const AuthProvider = ({ children }) => {
         user,
         isAuthenticated,
         errors,
+        loading,
       }}
     >
       {children}
