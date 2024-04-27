@@ -9,7 +9,7 @@
 */
 
 import { useEffect, useState } from 'react';
-import { loginRequest, registerRequest, verifyTokenRequest } from '../api/auth';
+import { loginRequest, logoutRequest, registerRequest, verifyTokenRequest } from '../api/auth';
 import { AuthContext } from '../hooks/useAuthContext';
 import Cookies from 'js-cookie';
 
@@ -36,7 +36,7 @@ Modularizando esta logica queda en el hook personalizado useAuthContext
 // Es un componente de React que actúa como el proveedor de contexto de autenticación.
 // Toma un prop llamado children, que representa los componentes hijos que estarán envueltos por este proveedor.
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const [isAuthenticated, setAuthenticated] = useState(false);
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -60,6 +60,17 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       if (!error.response) setErrors(['Network Error']);
       setErrors(error.response.data.error);
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await logoutRequest();
+      Cookies.remove('token');
+      setAuthenticated(false);
+      setUser({});
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -102,6 +113,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         signup,
         signin,
+        logout,
         user,
         isAuthenticated,
         errors,

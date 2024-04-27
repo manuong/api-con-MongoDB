@@ -11,6 +11,7 @@ las rutas secundarias serian todas las envueltas por este componente en App.jsx
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuthContext } from './hooks/useAuthContext';
 import PATH from './constants/pathRoutes';
+import Navbar from './components/Navbar';
 
 // funciona como un componente para no peritir el acceso a rutas protegidas
 const ProtectedRoute = () => {
@@ -21,7 +22,12 @@ const ProtectedRoute = () => {
   if (!loading && !isAuthenticated) return <Navigate to={PATH.LANDING} />;
 
   // si todo esta bien continua a la ruta establecida
-  return <Outlet />;
+  return (
+    <div>
+      <Navbar />
+      <Outlet />;
+    </div>
+  );
 };
 
 export default ProtectedRoute;
