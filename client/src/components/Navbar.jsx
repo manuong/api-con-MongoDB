@@ -1,10 +1,15 @@
 import { useAuthContext } from '../hooks/useAuthContext';
+import { useNoteContext } from '../hooks/useNoteContext';
 
 const Navbar = () => {
   const { user, logout } = useAuthContext();
+  const { resetNotes } = useNoteContext();
 
   const onClick = () => {
-    logout(); // funcion async
+    // funcion async
+    logout().then(() => {
+      resetNotes();
+    });
   };
 
   return (

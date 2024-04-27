@@ -3,6 +3,7 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import PATH from '../constants/pathRoutes';
+import { useNoteContext } from '../hooks/useNoteContext';
 
 const LoginPage = () => {
   const {
@@ -12,11 +13,14 @@ const LoginPage = () => {
   } = useForm();
 
   const { signin, isAuthenticated, errors: authErrors } = useAuthContext();
+  const { getNotes } = useNoteContext();
 
   const navigate = useNavigate();
 
-  const onSubmit = handleSubmit(async (values) => {
-    signin(values);
+  const onSubmit = handleSubmit((values) => {
+    signin(values).then(() => {
+      getNotes();
+    });
   });
 
   useEffect(() => {
