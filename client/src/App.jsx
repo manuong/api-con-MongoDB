@@ -7,27 +7,30 @@ import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './ProtectedRoute';
 import OnlyUnauthorized from './OnlyUnauthorized';
 import NoteFormPage from './pages/NoteFormPage';
+import NoteProvider from './context/NoteContext';
 
 const App = () => {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<OnlyUnauthorized />}>
-            <Route path={PATH.LANDING} element={<LandingPage />} />
-            <Route path={PATH.LOGIN} element={<LoginPage />} />
-            <Route path={PATH.REGISTER} element={<RegisterPage />} />
-          </Route>
+      <NoteProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<OnlyUnauthorized />}>
+              <Route path={PATH.LANDING} element={<LandingPage />} />
+              <Route path={PATH.LOGIN} element={<LoginPage />} />
+              <Route path={PATH.REGISTER} element={<RegisterPage />} />
+            </Route>
 
-          <Route element={<ProtectedRoute />}>
-            <Route path={PATH.HOME} element={<h1>Home page</h1>} />
-            <Route path={PATH.NOTE} element={<h1>notes page</h1>} />
-            <Route path={PATH.NOTE_DETAIL} element={<h1>update note</h1>} />
-            <Route path={PATH.NOTE_FORM} element={<NoteFormPage />} />
-            <Route path={PATH.PROFILE} element={<h1>User Profile</h1>} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+            <Route element={<ProtectedRoute />}>
+              <Route path={PATH.HOME} element={<h1>Home page</h1>} />
+              <Route path={PATH.NOTE} element={<h1>notes page</h1>} />
+              <Route path={PATH.NOTE_DETAIL} element={<h1>update note</h1>} />
+              <Route path={PATH.NOTE_FORM} element={<NoteFormPage />} />
+              <Route path={PATH.PROFILE} element={<h1>User Profile</h1>} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </NoteProvider>
     </AuthProvider>
   );
 };

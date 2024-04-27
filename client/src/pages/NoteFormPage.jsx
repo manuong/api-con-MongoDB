@@ -1,12 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import PATH from '../constants/pathRoutes';
+import { useNoteContext } from '../hooks/useNoteContext';
 
 const NoteFormPage = () => {
   const { register, handleSubmit } = useForm();
+  const { notes, createNote } = useNoteContext();
 
   const onSubmit = handleSubmit((values) => {
-    console.log(values);
+    createNote(values);
   });
 
   return (
