@@ -1,5 +1,7 @@
+import PATH from '../constants/pathRoutes';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useNoteContext } from '../hooks/useNoteContext';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const { user, logout } = useAuthContext();
@@ -17,13 +19,20 @@ const Navbar = () => {
       <h1>Notes API</h1>
 
       <ul className="w-2/4 flex justify-around">
-        <li>Home</li>
-        <li>Mis notas</li>
+        <Link to={PATH.HOME}>
+          <li>Inicio</li>
+        </Link>
+
+        <Link to={PATH.NOTES}>
+          <li>Mis notas</li>
+        </Link>
+
         <li>
           <button type="button" onClick={onClick}>
             Cerrar sesión
           </button>
         </li>
+
         <li>Icono</li>
         <li>{user.name && user.name.split(' ')[0]}</li>
       </ul>

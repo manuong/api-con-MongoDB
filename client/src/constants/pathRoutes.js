@@ -3,7 +3,7 @@ const PATH = {
   HOME: '/home',
   LOGIN: '/login',
   REGISTER: '/register',
-  NOTE: '/note',
+  NOTES: '/note',
   NOTE_DETAIL: '/note/:noteId',
   NOTE_FORM: '/note-form',
   PROFILE: '/profile',

@@ -9,6 +9,7 @@ import OnlyUnauthorized from './OnlyUnauthorized';
 import NoteFormPage from './pages/NoteFormPage';
 import NoteProvider from './context/NoteContext';
 import HomePage from './pages/HomePage';
+import NotesPage from './pages/NotesPage';
 
 const App = () => {
   return (
@@ -24,7 +25,7 @@ const App = () => {
 
             <Route element={<ProtectedRoute />}>
               <Route path={PATH.HOME} element={<HomePage />} />
-              <Route path={PATH.NOTE} element={<h1>notes page</h1>} />
+              <Route path={PATH.NOTES} element={<NotesPage />} />
               <Route path={PATH.NOTE_DETAIL} element={<h1>update note</h1>} />
               <Route path={PATH.NOTE_FORM} element={<NoteFormPage />} />
               <Route path={PATH.PROFILE} element={<h1>User Profile</h1>} />
