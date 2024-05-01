@@ -25,10 +25,10 @@ const HomePage = () => {
           <NavButton path={PATH.PROFILE} name={'Editar perfil'} />
         </div>
       </div>
-      <div className="w-3/5 ">
+      <div className="w-3/5 pl-12">
         <div className="flex justify-between p-2 mt-10">
           <h2 className="text-4xl">Notas Recientes</h2>
-          <div className="mr-16">
+          <div className="mr-5">
             <NavButton path={PATH.NOTE_FORM} name={'Nueva Nota'} />
           </div>
         </div>
