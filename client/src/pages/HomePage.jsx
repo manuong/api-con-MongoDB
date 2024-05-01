@@ -10,11 +10,14 @@ const HomePage = () => {
 
   return (
     <div className="flex">
-      <div className="w-2/5">
-        <h1 className="text-6xl m-6 ">Bienvenido</h1>
-        <h2 className="text-4xl mx-6 mt-16">{user.name ? user.name : 'Sin definir nombre aun'}</h2>
-        <p className="text-xl mx-6 mt-4"> {user.username}</p>
-        <p className="text-xl mx-6 mt-2">{user.email}</p>
+      <div className="w-2/5 p-6">
+        <h1 className="text-6xl ">Bienvenido</h1>
+        <h2 className="text-4xl  mt-16">{user.name ? user.name : 'Sin definir nombre aun'}</h2>
+        <p className="text-xl  mt-4"> {user.username}</p>
+        <p className="text-xl  mt-2">{user.email}</p>
+        <div className="mt-10">
+          <NavButton path={PATH.PROFILE} name={'Editar perfil'} />
+        </div>
       </div>
       <div className="w-3/5 ">
         <div className="flex justify-between p-2 mt-10">

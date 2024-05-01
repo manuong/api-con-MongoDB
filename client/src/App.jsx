@@ -10,6 +10,7 @@ import NoteFormPage from './pages/NoteFormPage';
 import NoteProvider from './context/NoteContext';
 import HomePage from './pages/HomePage';
 import NotesPage from './pages/NotesPage';
+import EditProfilePage from './pages/EditProfilePage';
 
 const App = () => {
   return (
@@ -28,7 +29,7 @@ const App = () => {
               <Route path={PATH.NOTES} element={<NotesPage />} />
               <Route path={PATH.NOTE_DETAIL} element={<h1>update note</h1>} />
               <Route path={PATH.NOTE_FORM} element={<NoteFormPage />} />
-              <Route path={PATH.PROFILE} element={<h1>User Profile</h1>} />
+              <Route path={PATH.PROFILE} element={<EditProfilePage />} />
             </Route>
           </Routes>
         </BrowserRouter>
