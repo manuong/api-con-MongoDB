@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { loginRequest, logoutRequest, registerRequest, verifyTokenRequest } from '../api/auth';
 import { AuthContext } from '../hooks/useAuthContext';
 import Cookies from 'js-cookie';
+import { editProfileRequest } from '../api/user';
 
 /* 
 
@@ -74,6 +75,18 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const editProfile = async (values) => {
+    try {
+      const res = await editProfileRequest(values);
+      setUser(res.data);
+      setAuthenticated(true);
+    } catch (error) {
+      if (!error.response) setErrors(['Network Error']);
+      setErrors(error.response.data.error);
+      throw new Error();
+    }
+  };
+
   useEffect(() => {
     // este setTimeout es para cerrar las alertas de los errores despues de un tiempo
     if (errors.length > 0) {
@@ -111,13 +124,14 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        signup,
-        signin,
-        logout,
         user,
         isAuthenticated,
         errors,
         loading,
+        signup,
+        signin,
+        logout,
+        editProfile,
       }}
     >
       {children}

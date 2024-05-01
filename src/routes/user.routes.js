@@ -1,5 +1,9 @@
 const userRoutes = require('express').Router();
-const { getUsersController, profileController } = require('../controllers/user.controllers');
+const {
+  getUsersController,
+  profileController,
+  updateUserController,
+} = require('../controllers/user.controllers');
 const { authUser } = require('../middlewares/validationToken.middleware');
 
 userRoutes.get('/users', getUsersController);
@@ -10,5 +14,6 @@ userRoutes.get('/users/:userId', getUsersController);
 // 'authUser' es un middleware definido por nosotros en este ejemplo para hacer la autenticacion antes
 // de que entre al contralador
 userRoutes.get('/profile', authUser, profileController);
+userRoutes.post('/users', authUser, updateUserController);
 
 module.exports = userRoutes;

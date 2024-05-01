@@ -1,9 +1,11 @@
 import { useForm } from 'react-hook-form';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import PATH from '../constants/pathRoutes';
 
 const EditProfilePage = () => {
-  const { user } = useAuthContext();
+  const { user, editProfile, errors: editProfileErrors } = useAuthContext();
 
   const [inputsValue, setInputsValues] = useState({
     name: user.name,
@@ -16,8 +18,14 @@ const EditProfilePage = () => {
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
+
   const onSubmit = handleSubmit((values) => {
-    console.log(values);
+    editProfile(values).then(() => {
+      if (!errors.username) {
+        navigate(PATH.HOME);
+      }
+    });
   });
 
   const handleChange = (event) => {
@@ -31,6 +39,15 @@ const EditProfilePage = () => {
   return (
     <div className=" flex flex-col items-center justify-center">
       <h1 className="text-5xl mt-32 mb-10">Editar Perfil</h1>
+
+      {editProfileErrors.map((error, i) => {
+        return (
+          <div key={i} className="bg-red-600 text-white w-96 p-2 mb-3">
+            {error}
+          </div>
+        );
+      })}
+
       <form onSubmit={onSubmit} className="flex flex-col">
         <input
           type="text"

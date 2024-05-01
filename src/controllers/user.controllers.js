@@ -31,7 +31,28 @@ const profileController = async (req, res, next) => {
   }
 };
 
+const updateUserController = async (req, res, next) => {
+  const userId = req.user.id;
+  const { name, username } = req.body;
+
+  try {
+    const newData = {
+      name,
+      username,
+    };
+
+    const updatedUser = await User.findOneAndUpdate({ _id: userId }, newData, { new: true });
+
+    if (!updatedUser) return res.status(404).json({ error: ['Usuario no registrado'] });
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getUsersController,
   profileController,
+  updateUserController,
 };

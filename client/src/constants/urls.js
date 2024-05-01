@@ -7,3 +7,5 @@ export const VERIFY_ENDPOINT = '/verify';
 export const LOGOUT_ENDPOINT = '/logout';
 
 export const NOTE_ENDPOINT = '/notes';
+
+export const USER_ENDPOINT = '/users';

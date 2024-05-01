@@ -11,10 +11,16 @@ const HomePage = () => {
   return (
     <div className="flex">
       <div className="w-2/5 p-6">
-        <h1 className="text-6xl ">Bienvenido</h1>
+        <h1 className="text-6xl mt-2">Bienvenido</h1>
         <h2 className="text-4xl  mt-16">{user.name ? user.name : 'Sin definir nombre aun'}</h2>
-        <p className="text-xl  mt-4"> {user.username}</p>
-        <p className="text-xl  mt-2">{user.email}</p>
+        <div className=" mt-4">
+          <spam className="text-xl mr-2"> {user.username}</spam>
+          <ion-icon name="globe-outline"></ion-icon>
+        </div>
+        <div className=" mt-2">
+          <spam className="text-xl mr-2">{user.email}</spam>
+          <ion-icon name="mail-outline"></ion-icon>
+        </div>
         <div className="mt-10">
           <NavButton path={PATH.PROFILE} name={'Editar perfil'} />
         </div>

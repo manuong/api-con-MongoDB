@@ -99,7 +99,7 @@ const verifyTokenController = async (req, res, next) => {
       return res.status(404).json({ error: ['Usuario no registrado'] });
     }
 
-    res.status(200).json({ userFound });
+    res.status(200).json(userFound);
   } catch (error) {
     next(error);
   }
