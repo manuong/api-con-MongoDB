@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import PATH from '../constants/pathRoutes';
 
-const NoteListItem = ({ title, content, important, noteId }) => {
+const NoteListItem = ({ title, content, important, noteId, onClick }) => {
   let smallTitle = null;
   let smallContent = null;
 
@@ -31,7 +31,10 @@ const NoteListItem = ({ title, content, important, noteId }) => {
             <ion-icon size="small" name="create-outline"></ion-icon>
           </button>
         </Link>
-        <button className="bg-red-600 w-6 h-6 flex items-center justify-center rounded-sm mx-6">
+        <button
+          onClick={() => onClick(noteId)}
+          className="bg-red-600 w-6 h-6 flex items-center justify-center rounded-sm mx-6"
+        >
           <ion-icon size="small" name="trash-outline"></ion-icon>
         </button>
       </ul>

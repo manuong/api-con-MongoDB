@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NoteContext } from '../hooks/useNoteContext';
-import { createNoteRequest, getNotesRequest } from '../api/note';
+import { createNoteRequest, deleteNoteRequest, getNotesRequest } from '../api/note';
 
 const NoteProvider = ({ children }) => {
   const [notes, setNotes] = useState([]);
@@ -24,7 +24,7 @@ const NoteProvider = ({ children }) => {
   const createNote = async (note) => {
     try {
       const res = await createNoteRequest(note);
-      setNotes((values) => [...values, res.data]);
+      setNotes((values) => [res.data, ...values]);
     } catch (error) {
       if (!error.response) setErrors(['Network Error']);
       setErrors(error.response.data.error);
@@ -34,6 +34,19 @@ const NoteProvider = ({ children }) => {
   // funcion para resetear notas
   const resetNotes = () => {
     setNotes([]);
+  };
+
+  // funcion para eliminar una nota
+  const deleteNote = async (noteId) => {
+    try {
+      const res = await deleteNoteRequest(noteId);
+      if (res.status === 200) {
+        setNotes(notes.filter((note) => note.id !== noteId));
+      }
+    } catch (error) {
+      if (!error.response) setErrors(['Network Error']);
+      setErrors(error.response.data.error);
+    }
   };
 
   // para traer las notas de la base de datos
@@ -49,6 +62,7 @@ const NoteProvider = ({ children }) => {
         getNotes,
         createNote,
         resetNotes,
+        deleteNote,
       }}
     >
       {children}

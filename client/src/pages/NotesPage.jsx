@@ -4,7 +4,11 @@ import PATH from '../constants/pathRoutes';
 import { useNoteContext } from '../hooks/useNoteContext';
 
 const NotesPage = () => {
-  const { notes } = useNoteContext();
+  const { notes, deleteNote } = useNoteContext();
+
+  const onClick = (noteId) => {
+    deleteNote(noteId);
+  };
 
   return (
     <div>
@@ -21,7 +25,14 @@ const NotesPage = () => {
       {notes.map((note) => {
         const { id, title, content, important } = note;
         return (
-          <NoteListItem key={id} title={title} content={content} important={important} noteId={id} />
+          <NoteListItem
+            key={id}
+            title={title}
+            content={content}
+            important={important}
+            noteId={id}
+            onClick={onClick}
+          />
         );
       })}
     </div>
