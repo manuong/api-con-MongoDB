@@ -11,6 +11,7 @@ import NoteProvider from './context/NoteContext';
 import HomePage from './pages/HomePage';
 import NotesPage from './pages/NotesPage';
 import EditProfilePage from './pages/EditProfilePage';
+import NoteEditPage from './pages/NoteEditPage';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
               <Route path={PATH.NOTES} element={<NotesPage />} />
               <Route path={PATH.NOTE_DETAIL} element={<h1>update note</h1>} />
               <Route path={PATH.NOTE_FORM} element={<NoteFormPage />} />
+              <Route path={`${PATH.NOTE_EDIT}/:noteId`} element={<NoteEditPage />} />
               <Route path={PATH.PROFILE} element={<EditProfilePage />} />
             </Route>
           </Routes>

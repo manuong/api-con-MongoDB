@@ -33,7 +33,6 @@ const EditProfilePage = () => {
     const inputValue = event.target.value;
 
     setInputsValues({ ...inputsValue, [inputName]: inputValue });
-    console.log(inputsValue);
   };
 
   return (

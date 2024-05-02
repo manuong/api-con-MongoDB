@@ -6,6 +6,7 @@ const PATH = {
   NOTES: '/note',
   NOTE_DETAIL: '/note/:noteId',
   NOTE_FORM: '/note-form',
+  NOTE_EDIT: '/note-edit',
   PROFILE: '/profile',
 };
 

@@ -20,7 +20,9 @@ const NotesPage = () => {
       </div>
       {notes.map((note) => {
         const { id, title, content, important } = note;
-        return <NoteListItem key={id} title={title} content={content} important={important} />;
+        return (
+          <NoteListItem key={id} title={title} content={content} important={important} noteId={id} />
+        );
       })}
     </div>
   );

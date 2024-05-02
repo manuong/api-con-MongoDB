@@ -11,7 +11,9 @@ const getNoteController = async (req, res, next) => {
     // de esta forma solo buscamos las notas del usuario junto con sus datos
     const notes = await Note.find({
       user: userId,
-    }).populate('user');
+    })
+      .sort({ updatedAt: -1 }) // '-1' ordenar de manera descendente '1' ordena de manera ascendente
+      .populate('user');
 
     res.status(200).json(notes);
   } catch (error) {
