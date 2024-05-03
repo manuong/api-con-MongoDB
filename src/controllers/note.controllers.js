@@ -22,6 +22,18 @@ const getNoteController = async (req, res, next) => {
   }
 };
 
+const getNoteDetailController = async (req, res, next) => {
+  const { noteId } = req.params;
+
+  try {
+    const note = await Note.findById(noteId);
+    if (!note) return res.status(404).json({ error: ['nota no encontrada'] });
+    res.status(200).json(note);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const postNoteController = async (req, res, next) => {
   const { title, content, important } = req.body;
 
@@ -95,6 +107,7 @@ const deleteNoteController = async (req, res, next) => {
 
 module.exports = {
   getNoteController,
+  getNoteDetailController,
   postNoteController,
   putNoteController,
   deleteNoteController,

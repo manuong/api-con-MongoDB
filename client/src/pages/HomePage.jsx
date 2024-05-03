@@ -43,6 +43,7 @@ const HomePage = () => {
                   title={note.title}
                   content={note.content}
                   important={note.important}
+                  noteId={note.id}
                 />
               );
             })}

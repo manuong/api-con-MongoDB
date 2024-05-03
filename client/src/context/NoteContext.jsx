@@ -10,6 +10,12 @@ const NoteProvider = ({ children }) => {
   const getNotes = async () => {
     try {
       const res = await getNotesRequest();
+      res.data.map((note) => {
+        if (typeof note.content === 'string') {
+          note.content = note.content.replace(/\n/g, '<br>');
+        }
+        return note;
+      });
       setNotes(res.data);
     } catch (error) {
       if (error.response.status === 401) {

@@ -12,6 +12,7 @@ import HomePage from './pages/HomePage';
 import NotesPage from './pages/NotesPage';
 import EditProfilePage from './pages/EditProfilePage';
 import NoteEditPage from './pages/NoteEditPage';
+import NoteDetailPage from './pages/NoteDetailPage';
 
 const App = () => {
   return (
@@ -28,7 +29,7 @@ const App = () => {
             <Route element={<ProtectedRoute />}>
               <Route path={PATH.HOME} element={<HomePage />} />
               <Route path={PATH.NOTES} element={<NotesPage />} />
-              <Route path={PATH.NOTE_DETAIL} element={<h1>update note</h1>} />
+              <Route path={`${PATH.NOTES}/:noteId`} element={<NoteDetailPage />} />
               <Route path={PATH.NOTE_FORM} element={<NoteFormPage />} />
               <Route path={`${PATH.NOTE_EDIT}/:noteId`} element={<NoteEditPage />} />
               <Route path={PATH.PROFILE} element={<EditProfilePage />} />
