@@ -18,7 +18,7 @@ const Navbar = () => {
     <div className="bg-zinc-900 h-16 p-3 flex items-center justify-between">
       <h1>Notes API</h1>
 
-      <ul className="w-2/5 flex justify-around items-center">
+      <ul className="w-2/6 flex justify-around items-center">
         <Link to={PATH.HOME}>
           <li>Inicio</li>
         </Link>
@@ -35,7 +35,7 @@ const Navbar = () => {
 
         <li className="flex items-center">
           <ion-icon size="large" name="person-circle-outline"></ion-icon>
-          {user.name && user.name.split(' ')[0]}
+          <spam className="mx-2">{user.name ? user.name.split(' ')[0] : 'Sin definir'}</spam>
         </li>
       </ul>
     </div>

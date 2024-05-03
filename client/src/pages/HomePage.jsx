@@ -28,9 +28,11 @@ const HomePage = () => {
       <div className="w-3/5 pl-12">
         <div className="flex justify-between p-2 mt-10">
           <h2 className="text-4xl">Notas Recientes</h2>
-          <div className="mr-5">
-            <NavButton path={PATH.NOTE_FORM} name={'Nueva Nota'} />
-          </div>
+          {notes.length > 0 && (
+            <div className="mr-5">
+              <NavButton path={PATH.NOTE_FORM} name={'Nueva Nota'} />
+            </div>
+          )}
         </div>
         {notes.length > 0 ? (
           <div className="mt-4 flex flex-wrap justify-start">
@@ -46,7 +48,10 @@ const HomePage = () => {
             })}
           </div>
         ) : (
-          <p>Sin notas aun</p>
+          <div className="mt-20 flex flex-col items-center justify-center">
+            <p className="text-xl text-zinc-600 mb-6"> no tienes notas aun, crea una </p>
+            <NavButton path={PATH.NOTE_FORM} name={'Nueva Nota'} />
+          </div>
         )}
       </div>
     </div>
