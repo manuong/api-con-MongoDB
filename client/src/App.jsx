@@ -6,13 +6,12 @@ import LandingPage from './pages/LandingPage';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './ProtectedRoute';
 import OnlyUnauthorized from './OnlyUnauthorized';
-import NoteFormPage from './pages/NoteFormPage';
 import NoteProvider from './context/NoteContext';
 import HomePage from './pages/HomePage';
 import NotesPage from './pages/NotesPage';
 import EditProfilePage from './pages/EditProfilePage';
-import NoteEditPage from './pages/NoteEditPage';
 import NoteDetailPage from './pages/NoteDetailPage';
+import NoteFormPage from './pages/NoteFormPage';
 
 const App = () => {
   return (
@@ -31,7 +30,7 @@ const App = () => {
               <Route path={PATH.NOTES} element={<NotesPage />} />
               <Route path={`${PATH.NOTES}/:noteId`} element={<NoteDetailPage />} />
               <Route path={PATH.NOTE_FORM} element={<NoteFormPage />} />
-              <Route path={`${PATH.NOTE_EDIT}/:noteId`} element={<NoteEditPage />} />
+              <Route path={`${PATH.NOTE_EDIT}/:noteId`} element={<NoteFormPage />} />
               <Route path={PATH.PROFILE} element={<EditProfilePage />} />
             </Route>
           </Routes>
