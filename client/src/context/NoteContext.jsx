@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NoteContext } from '../hooks/useNoteContext';
-import { createNoteRequest, deleteNoteRequest, getNotesRequest } from '../api/note';
+import { createNoteRequest, deleteNoteRequest, getNotesRequest, updateNoteRequest } from '../api/note';
 
 const NoteProvider = ({ children }) => {
   const [notes, setNotes] = useState([]);
@@ -37,6 +37,19 @@ const NoteProvider = ({ children }) => {
     }
   };
 
+  const updateNote = async (noteId, note) => {
+    try {
+      const res = await updateNoteRequest(noteId, note);
+      if (res.status === 200) {
+        const updatedNotes = [res.data, ...notes.filter((note) => note.id !== noteId)];
+        setNotes(updatedNotes);
+      }
+    } catch (error) {
+      if (!error.response) setErrors(['Network Error']);
+      setErrors(error.response.data.error);
+    }
+  };
+
   // funcion para resetear notas
   const resetNotes = () => {
     setNotes([]);
@@ -67,6 +80,7 @@ const NoteProvider = ({ children }) => {
         notes,
         getNotes,
         createNote,
+        updateNote,
         resetNotes,
         deleteNote,
       }}

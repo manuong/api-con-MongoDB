@@ -1,37 +1,44 @@
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useNoteContext } from '../hooks/useNoteContext';
-import { useState } from 'react';
+import { useEffect } from 'react';
+import PATH from '../constants/pathRoutes';
 
 const NoteFormPage = () => {
-  const { notes } = useNoteContext();
+  const { notes, updateNote, createNote } = useNoteContext();
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
+  const navigate = useNavigate();
+
   const { noteId } = useParams();
 
-  const noteCurrentData = notes.find((note) => note.id === noteId) || {};
+  useEffect(() => {
+    if (noteId) {
+      const noteCurrentData = notes.find((note) => note.id === noteId);
 
-  const [inputsValue, setInputsValues] = useState({
-    title: noteCurrentData.title,
-    content: noteCurrentData.content.replace(/<br>/g, '\n'), // '/<br>/g' es una exprecion regular,  que busca la cadena '<br>', La g al final de la expresión regular significa "global" esta para que busque todas las ocurrencias de la cadena en lugar de detenerse después de encontrar la primera coincidencia
-    important: noteCurrentData.important,
-  });
+      setValue('title', noteCurrentData.title);
+      setValue('content', noteCurrentData.content.replace(/<br>/g, '\n'));
+      setValue('important', noteCurrentData.important);
+    }
+  }, [setValue, noteId, notes]);
 
   const onSubmit = handleSubmit((values) => {
-    console.log(values);
+    if (noteId) {
+      updateNote(noteId, values).then(() => {
+        navigate(PATH.HOME);
+      });
+    } else {
+      createNote(values).then(() => {
+        navigate(PATH.HOME);
+      });
+    }
   });
-
-  const handleChange = (event) => {
-    const inputName = event.target.name;
-    const inputValue = event.target.value;
-
-    setInputsValues({ ...inputsValue, [inputName]: inputValue });
-  };
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -43,9 +50,7 @@ const NoteFormPage = () => {
         <input
           type="text"
           placeholder="Titulo"
-          value={inputsValue.title}
           {...register('title', { required: true })}
-          onChange={handleChange}
           className="bg-zinc-700  w-96 h-12 rounded-lg px-2 mb-5"
         />
 
@@ -54,9 +59,7 @@ const NoteFormPage = () => {
         <textarea
           rows="10"
           placeholder="Descripción"
-          value={inputsValue.content}
           {...register('content', { required: true })}
-          onChange={handleChange}
           className="bg-zinc-700  w-96 max-h-56 rounded-lg p-2 mb-5"
         ></textarea>
 
@@ -64,9 +67,7 @@ const NoteFormPage = () => {
           <label className="text-2xl mx-3">Importante : </label>
           <input
             type="checkbox"
-            checked={inputsValue.important}
             {...register('important')}
-            onChange={handleChange}
             className="h-5 w-5 mt-2 bg-zinc-700 rounded-lg"
           />
         </div>

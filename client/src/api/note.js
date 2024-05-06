@@ -15,8 +15,8 @@ export const createNoteRequest = (note) => {
   return axios.post(`${NOTE_ENDPOINT}`, note);
 };
 
-export const updateNoteRequest = (note) => {
-  return axios.put(`${NOTE_ENDPOINT}`, note);
+export const updateNoteRequest = (noteId, note) => {
+  return axios.put(`${NOTE_ENDPOINT}/${noteId}`, note);
 };
 
 export const deleteNoteRequest = (noteId) => {
