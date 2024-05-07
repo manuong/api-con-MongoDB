@@ -35,7 +35,7 @@ const Navbar = () => {
 
         <li className="flex items-center">
           <ion-icon size="large" name="person-circle-outline"></ion-icon>
-          <spam className="mx-2">{user.name ? user.name.split(' ')[0] : 'Sin definir'}</spam>
+          <span className="mx-2">{user.name ? user.name.split(' ')[0] : 'Sin definir'}</span>
         </li>
       </ul>
     </div>

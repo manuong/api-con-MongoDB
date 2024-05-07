@@ -14,11 +14,11 @@ const HomePage = () => {
         <h1 className="text-6xl mt-2">Bienvenido</h1>
         <h2 className="text-4xl  mt-16">{user.name ? user.name : 'Sin definir nombre aun'}</h2>
         <div className=" mt-4">
-          <spam className="text-xl mr-2"> {user.username}</spam>
+          <span className="text-xl mr-2"> {user.username}</span>
           <ion-icon name="globe-outline"></ion-icon>
         </div>
         <div className=" mt-2">
-          <spam className="text-xl mr-2">{user.email}</spam>
+          <span className="text-xl mr-2">{user.email}</span>
           <ion-icon name="mail-outline"></ion-icon>
         </div>
         <div className="mt-10">
